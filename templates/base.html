@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+	<style>
+    #container{ margin-left: auto; margin-right: auto;
+            background-image:url('{{ STATIC_URL }}images/background3.JPG'); }
+    #header{width:950px; margin-left: auto; margin-right: auto; padding: 30px;
+            text-align: center; font-size: 24;font-family: verdana; }
+    #main{width: 1000px; margin-left: auto; margin-right: auto; padding: 40px; 
+        background-image:url('{{ STATIC_URL }}images/background6.JPG');}
+	#content{ width:700px; min-height: 350px; margin-left: auto; margin-right: -20px; 
+             text-align: center;}
+	#leftsidebar{ width:250px;  float: left; margin-left: -30px; padding-left: 50px;}
+    #footer{width: 1190px;  margin-left: auto; margin-right: auto; padding: 8px; text-align: right;}
+	</style>
+    <title>{% block title %}Location Based Film Guide{% endblock %}</title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header"> {% block header %} Location Based Film Guide {% endblock %}
+        </div>
+        <div id="main">
+            <div id="leftsidebar">
+                {% block sidebar %}
+                <a href="/">Home</a>
+
+                {% csrf_token %}
+                {% if user.is_authenticated %}
+                <h2>Welcome {{ user.username }}!</h2>
+                <a href="/users/user_logout/">Log out</a></br>
+                <a href="/users/user_update_info/">Update your account</a>
+                {% else %}
+                <h2>Welcome random person!</h2>
+                <a href="/users/register/">Register Here</a></br>
+                <a href="/users/user_login/">Login</a>
+                {% endif %}
+                {% load staticfiles %} 
+                <img src = "{% static "images/lele.jpg" %}" alt="My image" />
+                </br>
+
+                {% endblock %}
+            </div>
+
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+
+        </div>
+        <div id="footer">
+            {% include "footer.html" %}
+        </div>
+        
+    </div>
+
+    
+</body>
+</html>

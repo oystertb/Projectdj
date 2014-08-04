@@ -1,0 +1,30 @@
+<style>
+	.image{ width: 200px; height: 200px;}
+	table{ margin-right: auto; margin-left: auto; margin-top: 30px;}
+	td{ padding: 25px; text-align: center;}
+	.aIndex{ font-size: 18; font-family: verdana; text-decoration: none; }
+
+</style>
+{% extends "base.html"%}
+
+{% block content %} 
+	<table >
+		<tr>
+			{% load staticfiles %} 
+			<td><a class="aIndex" href="/films/search_form/2">Search</a></br>
+				<img class="image" src = "{% static "images/search1.jpg" %}" alt="Search" /></td>
+			<td><a class="aIndex" href="/films/top_rated/">See Top Rated Films</a></br>
+				<img class="image" src = "{% static "images/toprated.jpg" %}" alt="Top Rated" /></td>
+		</tr>
+		<tr>
+			{% if user.is_authenticated %}
+			<td><a class="aIndex" href="/films/film_add/">Add </a></br>
+				<img class="image" src = "{% static "images/add.jpg" %}" alt="Add" /></td>
+			<td><a class="aIndex" href="/films/search_form/1">Find and Edit </a></br> <!-- edit edilecek filmi secmek icin-->
+				<img class="image" src = "{% static "images/edit.jpg" %}" alt="Edit" /></td>
+			{% endif %}
+		</tr>		
+	</table>
+
+
+{% endblock %}

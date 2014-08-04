@@ -1,0 +1,54 @@
+<style>
+	
+	table{ margin-right: auto; margin-left: auto; border: 1px solid black; border-collapse: collapse; }
+	td,th { padding: 25px; text-align: center; border: 1px solid black;}
+	
+
+</style>
+
+{% extends "base.html"%}
+
+{% block content %}
+
+<div class="mainAddDiv">
+	<form action="#" method=POST>
+		<table style='width:600px'>
+			<caption> Add Film </caption>
+			<tr>
+				<th colspan="2">Name:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Year:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Rating:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Director:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Link:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Location:</th> <!-- burasi select choice olacak -->
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Genre:</th> <!-- burasi select choice olacak -->
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tfoot>
+				<tr>
+					<td colspan="4">Enter necessary fields and <input type="submit" name="add" value="Add" /></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>
+
+{% endblock %}

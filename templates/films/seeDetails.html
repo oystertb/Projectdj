@@ -1,0 +1,48 @@
+<style>
+	
+	table,th,td
+	{
+		border:1px solid black;
+		border-collapse:collapse;
+	}
+	th,td
+	{
+		padding:5px;
+	}
+	th
+	{ 
+		text-align:center;
+		font-style: bold;
+	}
+	.filmDetails{}
+	
+
+</style>
+
+{% extends "base.html"%}
+
+{% block content %}
+<div class="filmDetails">
+		<table>
+			<tr>
+				<th>NAME</th>
+				<th>YEAR</th>
+				<th>RATING</th>
+				<th>DIRECTOR</th>
+				<th>LINK</th>
+				<th>LOCATION</th>
+				<th>GENRE</th>
+			</tr>
+			<tr>
+				<td>{{film_details.film_name}}</td>
+				<td>{{film_details.year}}</td>
+				<td>{{film_details.rate}}</td>
+				<td>{{film_details.director}}</td>
+				<td><a href="{{film_details.imdb_link}}">{{film_details.imdb_link}}</a></td>
+				<td>{{film_details.film_location}}</td>
+				<td>{% for genre in film_details.film_genre.all%} {{genre}}, {% endfor %}</td>
+			</tr>
+		</table>
+	</div>
+
+{% endblock %}

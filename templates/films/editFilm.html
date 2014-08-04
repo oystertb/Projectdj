@@ -1,0 +1,61 @@
+<style>
+	.searchOptionTable { }
+	
+	table{ margin-right: auto; margin-left: auto; border: 1px solid black; border-collapse: collapse; }
+	td,th { padding: 25px; text-align: center; border: 1px solid black;}
+	
+
+</style>
+
+{% extends "base.html"%}
+
+{% block content %}
+<div class="searchOptionTable">
+		<form action="/searchOptions/" method = "get">
+			<table style="width:500px">
+				<caption> Find the Film You Want to Edit </caption>
+				<tr>
+					<th>Film Search</td>
+					<td><input type="text" name="TextSearchValueF"></input></td>
+					<td><button name="SearchBut" type="submit" value="Film">Search!</button></td>
+				</tr>
+				<tr>
+					<th>Borough Search</td><!-- option button -->
+					<td>
+						<select name="borough">
+							{% for borough in borough_list %}
+							<option value="{{borough.pk}}">{{borough.borough_name}}</option>
+							{% endfor %}
+						</select>
+					</td>
+					<td><button name="SearchBut" type="submit" value="Borough">Search!</button></td>
+				</tr>
+				<tr>
+					<th>Genre Search</td><!-- option button -->
+					<td>
+						<select name="genre">
+							{% for genre in genre_list %}
+							<option value="{{genre.pk}}">{{genre.genre_name}}</option>
+							{% endfor %}
+						</select>
+					</td>
+					<td><button name="SearchBut" type="submit" value="Genre">Search!</button></td>
+				</tr>
+				<tr>
+					<th>Zone Search</td> <!-- radio button -->
+					<td>
+						{% for zone in zone_list %}
+						<input type="radio" name="zone" value="{{zone.zone_number}}">{{zone.zone_number}}</input>
+						{% endfor %}
+					</td>
+					<td><button name="SearchBut" type="submit" value="Zone">Search!</button></td>
+				</tr>
+				<tr>
+					<th>Rating Search</td><!-- option button -->
+					<td><input type="text" name="TextSearchValueR"></input></td>
+					<td><button name="SearchBut" type="submit" value="Rating">Search!</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+{% endblock %}

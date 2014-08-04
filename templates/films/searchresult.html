@@ -1,0 +1,65 @@
+<style>
+	
+	table,th,td
+	{
+		border:1px solid black;
+		border-collapse:collapse;
+	}
+	th,td
+	{
+		padding:5px;
+	}
+	th
+	{ 
+		text-align:center;
+		font-style: bold;
+	}
+	
+
+</style>
+
+{% extends "base.html"%}
+
+{% block content %}
+
+<div class="searchResultDiv">
+		{% if film_objects %}
+		<form action="/films/filmOptions/" method="get">
+			<table >
+				<tr>
+					<th>NAME</th>
+					<th>YEAR</th>
+					<th>RATING</th>
+					<th>DIRECTOR</th>
+					<th>LOCATION</th>
+					<th>GENRE</th>
+					<th>OPTIONS</th>
+				</tr>
+				{% for f in film_objects %}
+				<tr>
+					<td>{{f.film_name}}</td>
+					<td>{{f.year}}</td>
+					<td>{{f.rate}}</td>
+					<td>{{f.director}}</td>
+					<td>{{f.film_location}}</td>
+					<td>{% for g in f.film_genre.all %}{{ g}},{% endfor %}</td>
+					<td><button name="film_but" type="submit" value="{{f.pk}}">See Details!</button>
+					{% if user.is_authenticated %}
+				    <button name="film_del_but" type="submit" value="{{f.pk}}">Delete!</button>
+			        <button name="film_update_but" type="submit" value="{{f.pk}}">Update!</button>
+					{% endif %}
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</form>
+		{% else %}
+			<p>
+				Sorry, no film found.
+			</p>
+		{% endif %}
+	</div>
+
+
+
+{% endblock %}

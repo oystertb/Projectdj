@@ -1,0 +1,66 @@
+<style>
+	.UserInfoDiv{ min-height: 340px; text-align: center;padding-top: 20px;}
+    table,th,td
+    {
+        border:1px solid black;
+        margin-top:50px;
+    }
+    th,td
+    {
+        padding:10px;
+    }
+    tfoot
+    {
+        text-align:right;
+    }
+    th
+    { 
+        text-align:center;
+        background-color:yellow;
+    }
+
+</style>
+
+{% extends "base.html"%}
+
+{% block content %}
+
+<div class="UserInfoDiv">
+	<h1>User Details</h1>
+
+        <form action="" method="POST">
+                <input type="hidden" name="userPK" value="{{user.pk}}">
+                <table style="width:600px">
+                    <caption> Your Account Deatils </caption>
+                    <tr>
+                        <th colspan="2">Name:</th>
+                        <td>{{user.username}}</td>
+                        <td><input type="text" name="TxtUserUpdatedName"></input></td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Password:</th>
+                        <td>***********</td>
+                        <td>Current Password:<input type="text" name="TxtUserCurPass"></input><br/>
+                            New Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="TxtUserUpdatedPass"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Email:</th>
+                        <td>{{user.email}}</td>
+                        <td><input type="text" name="TxtUserUpdatedEmail"></input></td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Website</th>
+                        <td>{{user.get_profile.website}}</td>
+                        <td><input type="text" name="TxtUserUpdatedWeb"></input></td>
+                    </tr>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">Make your changes and <input type="submit" name="update" value="Update" /></td>
+                        </tr>
+                </tfoot>
+                </table>
+            </form>
+	
+</div>
+
+{% endblock %}
