@@ -38,13 +38,13 @@ def user_login(request):
 @login_required
 def user_update_info(request):
 	return render(request, 'users/showUserInfo.html') 
+    
 
 def register(request):
 
 	Context = RequestContext(request)
-	registered = False #henuz giris yapimadi
 
-	if request.method == 'POST':
+	if request.method == 'POST': #user bilgilerini girmis kayit ol butonuna basmis.
 		user_form = UserForm(data = request.POST)
 		profile_form = UserProfileForm(data = request.POST)
 
@@ -52,6 +52,7 @@ def register(request):
 			user = user_form.save()
 			user.set_password(user.password)
 			user.save()
+            #registered = True
 
 			profile = profile_form.save(commit = False)
 			profile.user = user
@@ -60,16 +61,15 @@ def register(request):
 				profile.picture = request.FILES['picture']
 
 			profile.save()
-
-			registered = True
+			return render(request, 'users/register_success.html')
 
 		else:
 			print user_form.errors, profile_form.errors
 
-	else:
+	else: # henuz yeni register ekrani goren user icin
 		user_form = UserForm()
 		profile_form = UserProfileForm()
-
-	return render_to_response(
+        
+        return render_to_response(
 		'users/registration.html',
 		{'user_form':user_form, 'profile_form':profile_form, 'registered': registered}, Context)

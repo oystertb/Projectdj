@@ -1,0 +1,51 @@
+<style>
+	.loginDiv{ height: 340px; text-align: center;padding-top: 60px;}
+
+</style>
+
+{% extends "base.html"%}
+
+{% block content %}
+
+<div class="loginDiv">
+	<h2>Successfully Registered!</h2>
+	<p><a href="/users/user_login/">To login please click here</a></p>
+	
+</div>
+
+{% endblock %}
+
+<!-- def register(request):
+    Context = RequestContext(request)
+    registered = False #henuz giris yapimadi
+
+	#after clicking save button
+    if request.method == 'POST':
+        user_form = UserForm(data = request.POST)
+        profile_form = UserProfileForm(data = request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+			user = user_form.save()
+			user.set_password(user.password)
+			user.save()
+
+			profile = profile_form.save(commit = False)
+			profile.user = user
+            
+			if 'picture' in request.FILES:
+				profile.picture = request.FILES['picture']  
+                    
+            profile.save()
+            registered = True
+            return render_to_response('users/register_success.html')
+
+		else:
+			print user_form.errors, profile_form.errors
+            
+    #when user visit register page firsttime
+	else: 
+		user_form = UserForm()
+		profile_form = UserProfileForm()
+
+	return render_to_response(
+		'users/registration.html',
+		{'user_form':user_form, 'profile_form':profile_form, 'registered': registered}, Context)>

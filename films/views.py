@@ -21,10 +21,6 @@ def search_form(request, option):
     elif option == "1":#render search before edit page
         return render(request, 'films/editFilm.html', {'zone_list' : zone_list, 'borough_list' : borough_list, 'genre_list' : genre_list})
 
-def top_rated(request):
-	film_list = Film.objects.filter(rate__gt=4, display=1)
-	return render(request, 'films/toprated.html',{'film_list' : film_list})
-
 def filmOptions(request):
 	if request.method == 'GET':
             if request.GET.get("film_but"):

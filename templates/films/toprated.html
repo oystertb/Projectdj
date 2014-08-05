@@ -33,24 +33,23 @@
 			</tr>
 
 			<!-- {% if film_list%} -->
-				{% for film in film_list %}
-				<tr>
-					<td>{{film.film_name}}</td>
-					<td>{{film.year}}</td>
-					<td>{{film.rate}}</td>
-					<td>{{film.director}}</td>
-					<td>{{film.film_location}}</td>
-					<td>{% for g in film.film_genre.all %}{{ g}},{% endfor %}</td>
-					<td><button name="film_but" type="submit" value="{{film.pk}}">See Details!</button>
-						{% if user.is_authenticated %}
-					    <button name="film_del_but" type="submit" value="{{film.pk}}">Delete!</button>
-					    <button name="film_update_but" type="submit" value="{{film.pk}}">Update!</button>
-						{% endif %}
-					</td>
-				</tr>
-				{% endfor %}
+			{% for film in object_list %}
+			<tr>
+				<td>{{film.film_name}}</td>
+				<td>{{film.year}}</td>
+				<td>{{film.rate}}</td>
+				<td>{{film.director}}</td>
+				<td>{{film.film_location}}</td>
+				<td>{% for g in film.film_genre.all %}{{ g}},{% endfor %}</td>
+				<td><button name="film_but" type="submit" value="{{film.pk}}">See Details!</button>
+					{% if user.is_authenticated %}
+				    <button name="film_del_but" type="submit" value="{{film.pk}}">Delete!</button>
+					<button name="film_update_but" type="submit" value="{{film.pk}}">Update!</button>
+					{% endif %}
+				</td>
+			</tr>
+			{% endfor %}
 			<!-- {% endif %} -->
 		</table>
 	</form>
-
 {% endblock %}

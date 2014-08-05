@@ -1,5 +1,5 @@
 <style>
-	.RegisterDiv{ height: 340px; text-align: center;padding-top: 60px;}
+	.RegisterDiv{ height: 340px; text-align: left;padding-top: 60px;}
 
 </style>
 
@@ -17,8 +17,8 @@
             <!-- Display each form. The as_p method wraps each element in a paragraph
                  (<p>) element. This ensures each element appears on a new line,
                  making everything look neater. -->
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
+            {{ user_form.as_ul }}
+            {{ profile_form.as_ul }} <!-- as_p, as_table-->
 
             <!-- Provide a button to click to submit the form. -->
             <input type="submit" name="submit" value="Register" />
