@@ -20,7 +20,7 @@
 
 {% block content %} 
 
-	<form action="films/seeFilmDetail/" method="get">
+	<form action="/films/filmOptions/" method="get">
 		<table >
 			<tr>
 				<th>NAME</th>
@@ -40,7 +40,10 @@
 				<td>{{film.rate}}</td>
 				<td>{{film.director}}</td>
 				<td>{{film.film_location}}</td>
-				<td>{% for g in film.film_genre.all %}{{ g}},{% endfor %}</td>
+				<td>{% for g in film.film_genre.all %}{{ g}}
+					{% if not forloop.last %},
+					{% endif %}
+					{% endfor %}</td>
 				<td><button name="film_but" type="submit" value="{{film.pk}}">See Details!</button>
 					{% if user.is_authenticated %}
 				    <button name="film_del_but" type="submit" value="{{film.pk}}">Delete!</button>

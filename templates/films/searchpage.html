@@ -3,6 +3,7 @@
 	
 	table{ margin-right: auto; margin-left: auto; border: 1px solid black; border-collapse: collapse; }
 	td,th { padding: 25px; text-align: center; border: 1px solid black;}
+	#back { margin-right:455;}
 	
 
 </style>
@@ -10,6 +11,7 @@
 {% extends "base.html"%}
 
 {% block content %}
+<a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
 <div class="searchOptionTable">
 		<form action="/films/searchOptions/" method = "get">
 			<table style="width:500px">

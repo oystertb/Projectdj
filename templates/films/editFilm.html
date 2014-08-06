@@ -11,13 +11,14 @@
 
 {% block content %}
 <div class="searchOptionTable">
-		<form action="/searchOptions/" method = "get">
+		<!-- /films/searchOptions/1 1 stands for editing -->
+		<form action="/films/searchOptions/1" method = "get">
 			<table style="width:500px">
 				<caption> Find the Film You Want to Edit </caption>
 				<tr>
 					<th>Film Search</td>
 					<td><input type="text" name="TextSearchValueF"></input></td>
-					<td><button name="SearchBut" type="submit" value="Film">Search!</button></td>
+					<td><button name="SearchBut" type="submit" value="Film">Find and Edit!</button></td>
 				</tr>
 				<tr>
 					<th>Borough Search</td><!-- option button -->
@@ -28,7 +29,7 @@
 							{% endfor %}
 						</select>
 					</td>
-					<td><button name="SearchBut" type="submit" value="Borough">Search!</button></td>
+					<td><button name="SearchBut" type="submit" value="Borough">Find and Edit!</button></td>
 				</tr>
 				<tr>
 					<th>Genre Search</td><!-- option button -->
@@ -39,7 +40,7 @@
 							{% endfor %}
 						</select>
 					</td>
-					<td><button name="SearchBut" type="submit" value="Genre">Search!</button></td>
+					<td><button name="SearchBut" type="submit" value="Genre">Find and Edit!</button></td>
 				</tr>
 				<tr>
 					<th>Zone Search</td> <!-- radio button -->
@@ -48,7 +49,7 @@
 						<input type="radio" name="zone" value="{{zone.zone_number}}">{{zone.zone_number}}</input>
 						{% endfor %}
 					</td>
-					<td><button name="SearchBut" type="submit" value="Zone">Search!</button></td>
+					<td><button name="SearchBut" type="submit" value="Zone">Find and Edit!</button></td>
 				</tr>
 				<tr>
 					<th>Rating Search</td><!-- option button -->

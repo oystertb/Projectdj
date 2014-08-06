@@ -42,7 +42,10 @@
 					<td>{{f.rate}}</td>
 					<td>{{f.director}}</td>
 					<td>{{f.film_location}}</td>
-					<td>{% for g in f.film_genre.all %}{{ g}},{% endfor %}</td>
+					<td>{% for g in f.film_genre.all %}{{ g}}
+						{% if not forloop.last %},
+						{% endif %}
+						{% endfor %}</td>
 					<td><button name="film_but" type="submit" value="{{f.pk}}">See Details!</button>
 					{% if user.is_authenticated %}
 				    <button name="film_del_but" type="submit" value="{{f.pk}}">Delete!</button>

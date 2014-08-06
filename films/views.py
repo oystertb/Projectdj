@@ -8,6 +8,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 #from mysite1.boroughs.forms import UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
+from django import forms
+from films.forms import FilmForm
 
 def search_form(request, option):
     borough_list = Borough.objects.all()
@@ -42,8 +44,26 @@ def filmOptions(request):
                 return render(request,'boroughs/filmInfoUpdate.html',{'f_update':f_update, 'zone_list' : zone_list, 'borough_list' : borough_list, 'genre_list' : genre_list})
                 #return HttpResponse("Updated")
 
+#add with html form
 def film_add(request):
 	return render(request, 'films/addFilm.html') 
+    
+#add via form instance    
+def __film_add(request):
+    Context = RequestContext(request)
+    if request.method == "POST":
+        addFilmForm = FilmForm(request.POST)
+        if addFilmForm.is_valid():
+            film_instance = addFilmForm.save(commit=False)
+            film_instance.display = 1
+            # film_instance.timestamp = timezone.now() bunun gibi, db de olan ama formda display edilmeyen alanlarin degerleri burda verilebilir.
+            film_instance.save()
+    else:
+        addFilmForm = FilmForm()
+        
+    return render_to_response(
+    		'films/addFilm.html',
+    		{'addFilmForm':addFilmForm }, Context)
 
 def film_edit(request):
 	pass
