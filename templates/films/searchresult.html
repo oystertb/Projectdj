@@ -14,7 +14,7 @@
 		text-align:center;
 		font-style: bold;
 	}
-	
+	#back { margin-right:455;}
 
 </style>
 
@@ -23,6 +23,15 @@
 {% block content %}
 
 <div class="searchResultDiv">
+	<a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
+		{% if option == '2' %}
+		<h3>Search Results! Please choose one to see details.</h3>
+		{% endif %}
+		{% if option == '1' %}
+			{% if user.is_authenticated %}
+    		<h3>Search Results! Please choose one to edit film details or delete the record.</h3>
+			{% endif %}
+		{% endif %}
 		{% if film_objects %}
 		<form action="/films/filmOptions/" method="get">
 			<table >
@@ -46,11 +55,18 @@
 						{% if not forloop.last %},
 						{% endif %}
 						{% endfor %}</td>
-					<td><button name="film_but" type="submit" value="{{f.pk}}">See Details!</button>
-					{% if user.is_authenticated %}
-				    <button name="film_del_but" type="submit" value="{{f.pk}}">Delete!</button>
-			        <button name="film_update_but" type="submit" value="{{f.pk}}">Update!</button>
-					{% endif %}
+					<td>
+						{% if option == '2' %}
+						<button name="film_but" type="submit" value="{{f.pk}}">See Details!</button>
+			    		<button name="film_del_but" type="submit" value="{{f.pk}}">Delete!</button>
+		        		<button name="film_update_but" type="submit" value="{{f.pk}}">Update!</button>
+						{% endif %}
+						{% if option == '1' %}
+							{% if user.is_authenticated %}
+				    		<button name="film_del_but" type="submit" value="{{f.pk}}">Delete!</button>
+			        		<button name="film_update_but" type="submit" value="{{f.pk}}">Update!</button>
+							{% endif %}
+						{% endif %}
 					</td>
 				</tr>
 				{% endfor %}

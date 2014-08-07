@@ -13,13 +13,14 @@
 		text-align:center;
 		font-style: bold;
 	}
+	#back { margin-right:455;}
 
 </style>
 
 {% extends "base.html"%}
 
 {% block content %} 
-
+<a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
 	<form action="/films/filmOptions/" method="get">
 		<table >
 			<tr>

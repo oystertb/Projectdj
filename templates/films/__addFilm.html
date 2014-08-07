@@ -1,6 +1,7 @@
 <!-- addfilm adding via form instance version -->
 <style>
 	.AddFilmDiv{ text-align: left;padding-top: 60px;}
+	#back { margin-right:455;}
 
 </style>
 
@@ -9,6 +10,7 @@
 {% block content %}
 
 <div class="AddFilmDiv">
+	<a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
 	<h2>ADD NEW FILM</h2>
 
         <form id="add_film_form" method="post" action="/films/film_add/"

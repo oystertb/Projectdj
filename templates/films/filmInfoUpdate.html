@@ -1,0 +1,73 @@
+<style>
+	.containerFilmUpdate { }
+	
+	table{ margin-right: auto; margin-left: auto; border: 1px solid black; border-collapse: collapse; }
+	td,th { padding: 25px; text-align: center; border: 1px solid black;}
+	#back { margin-right:455;}
+	
+
+</style>
+
+{% extends "base.html"%}
+
+{% block content %}
+<a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
+<div class="containerFilmUpdate">
+		<form action="/films/filmUpdate/" method=GET>
+			<input type="hidden" name="filmPK" value="{{f_update.pk}}">
+			<table style='width:600px'>
+				<caption> Current Film Deatils </caption>
+				<tr>
+					<th colspan="2">Name:</th>
+					<td>{{f_update.film_name}}</td>
+					<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+				</tr>
+				<tr>
+					<th colspan="2">Year:</th>
+					<td>{{f_update.year}}</td>
+					<td><input type="text" name="TxtFilmUpdatedYear"></input></td>
+				</tr>
+				<tr>
+					<th colspan="2">Rating:</th>
+					<td>{{f_update.rate}}</td>
+					<td><input type="text" name="TxtFilmUpdatedRate"></input></td>
+				</tr>
+				<tr>
+					<th colspan="2">Director:</th>
+					<td>{{f_update.director}}</td>
+					<td><input type="text" name="TxtFilmUpdatedDirector"></input></td>
+				</tr>
+				<tr>
+					<th colspan="2">Link:</th>
+					<td><a href="{{f_update.imdb_link}}">{{f_update.imdb_link}}</a></td>
+					<td><input type="text" name="TxtFilmUpdatedLink"></input></td>
+				</tr>
+				<tr>
+					<th colspan="2">Location:</th>
+					<td>{{f_update.film_location}}</td>
+					<td><select name="FilmUpdatedLoc">
+							{% for borough in borough_list %}
+							<option value="{{borough.pk}}">{{borough.borough_name}}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th colspan="2">Genre:</th>
+					<td>{% for genre in f_update.film_genre.all%} {{genre}}, {% endfor %}</td>
+					<td><select name="FilmUpdatedGenre" multiple="multiple">
+							{% for genre in genre_list %}
+							<option value="{{genre.pk}}">{{genre.genre_name}}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tfoot>
+					<tr>
+						<td colspan="4">Make your changes and <input type="submit" name="update" value="Update" /></td>
+					</tr>
+				</tfoot>
+			</table>
+		</form>
+	</div>
+{% endblock %}

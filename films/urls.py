@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^film_edit/$', views.film_edit, name='film_edit'),
     url(r'^seeFilmDetail/$', views.seeFilmDetail, name='seeFilmDetail'),
     url(r'^film_add/$', views.film_add, name='film_add'),
-    url(r'^searchOptions/$',views.searchOptions),
+    url(r'^searchOptions/(?P<option>\d+)/$',views.searchOptions),
     url(r'^filmOptions/$',views.filmOptions),
+    url(r'^filmUpdate/$',views.filmUpdate),
 )

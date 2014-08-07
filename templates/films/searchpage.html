@@ -11,9 +11,10 @@
 {% extends "base.html"%}
 
 {% block content %}
-<a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
+
 <div class="searchOptionTable">
-		<form action="/films/searchOptions/" method = "get">
+	<a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
+		<form action="/films/searchOptions/2" method = "get">
 			<table style="width:500px">
 				<caption> Search Options </caption>
 				<tr>

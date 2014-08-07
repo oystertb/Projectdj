@@ -72,4 +72,4 @@ def register(request):
         
         return render_to_response(
 		'users/registration.html',
-		{'user_form':user_form, 'profile_form':profile_form, 'registered': registered}, Context)
+		{'user_form':user_form, 'profile_form':profile_form}, Context)

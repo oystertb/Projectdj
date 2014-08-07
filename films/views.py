@@ -34,14 +34,15 @@ def filmOptions(request):
                 f.save(update_fields=['display'])
                 #return HttpResponse("Deleted")
                 film_list = Film.objects.filter(rate__gt=4, display=1)
-                return render(request,'boroughs/index.html',{'film_list': film_list}) 
+                return HttpResponseRedirect('/films/top_rated/')
+                #return render(request,'boroughs/index.html',{'film_list': film_list}) 
             elif request.GET.get("film_update_but"):
                 borough_list = Borough.objects.all()
                 #OrderNotes.objects.filter(item=item).values_list('shared_note', flat=True).distinct()
                 zone_list = Borough.objects.values('zone_number').distinct().order_by('zone_number')
                 genre_list = Genre.objects.all()
                 f_update = Film.objects.get(pk=request.GET.get("film_update_but"))
-                return render(request,'boroughs/filmInfoUpdate.html',{'f_update':f_update, 'zone_list' : zone_list, 'borough_list' : borough_list, 'genre_list' : genre_list})
+                return render(request,'films/filmInfoUpdate.html',{'f_update':f_update, 'zone_list' : zone_list, 'borough_list' : borough_list, 'genre_list' : genre_list})
                 #return HttpResponse("Updated")
 
 #add with html form
@@ -64,6 +65,36 @@ def __film_add(request):
     return render_to_response(
     		'films/addFilm.html',
     		{'addFilmForm':addFilmForm }, Context)
+            
+def filmUpdate(request):
+    f = Film.objects.get(pk = request.GET.get("filmPK"))
+    f.film_name = request.GET.get('TxtFilmUpdatedName')
+    f.year = request.GET.get('TxtFilmUpdatedYear')
+    f.rate = request.GET.get('TxtFilmUpdatedRate')
+    f.director = request.GET.get('TxtFilmUpdatedDirector')
+    f.imdb_link = request.GET.get('TxtFilmUpdatedLink')
+    
+    loc = Borough.objects.filter(pk=request.GET['FilmUpdatedLoc'])
+    for l in loc:
+         f.film_location = l
+    f.film_genre = request.GET.getlist('FilmUpdatedGenre')
+    
+        #this part didnt work!!!!    
+        #f.film_genre = ""
+        #for value in request.GET['FilmUpdatedGenre']:
+        #----------------------
+        #value = request.GET['FilmUpdatedGenre']
+        #for v in value:
+         #   genre = Genre.objects.filter(pk=v)
+            #for g in genre:
+          #  f.film_genre = genre   #str(value)+", "
+        
+    #f.save(update_fields=['film_name','year','rate','director','imdb_link','film_location','film_genre'])
+        #f.save(update_fields=['film_genre'])
+    f.save_m2m()
+    
+    film_details = Film.objects.get(pk = request.GET.get("filmPK"))
+    return render(request, 'films/seedetails.html',{'film_details' : film_details})
 
 def film_edit(request):
 	pass
@@ -71,7 +102,10 @@ def film_edit(request):
 def seeFilmDetail(request):
     pass
 
-def searchOptions(request):
+def searchOptions(request,option):
+    
+    Context = RequestContext(request)
+    
     if request.GET.get('SearchBut') == 'Film':
         searchVal = request.GET.get('TextSearchValueF')
         film_objects = Film.objects.filter(film_name__contains=searchVal, display=1)
@@ -94,4 +128,6 @@ def searchOptions(request):
         searchVal = request.GET.get('TextSearchValueR')
         film_objects = Film.objects.filter(rate=searchVal, display=1)
         
-    return render(request, 'films/searchresult.html', {'film_objects': film_objects})
+    return render_to_response(
+            'films/searchresult.html', 
+            {'film_objects': film_objects ,'option':option},Context)

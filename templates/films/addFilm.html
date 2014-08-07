@@ -3,6 +3,7 @@
 	
 	table{ margin-right: auto; margin-left: auto; border: 1px solid black; border-collapse: collapse; }
 	td,th { padding: 25px; text-align: center; border: 1px solid black;}
+	#back { margin-right:455;}
 	
 
 </style>
@@ -12,6 +13,7 @@
 {% block content %}
 
 <div class="mainAddDiv">
+	<a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
 	<form action="#" method=POST>
 		<table style='width:600px'>
 			<caption> Add Film </caption>
