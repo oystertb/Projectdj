@@ -6,10 +6,32 @@ from models import Film,Borough,Genre
 from django.template import Context, loader
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-#from mysite1.boroughs.forms import UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from django import forms
 from films.forms import FilmForm
+from films.models import Film
+from django.views.generic import ListView, DetailView
+
+class Film_TopRatedList(ListView):
+    model=Film
+    template_name="films/toprated.html"
+    paginate_by = 5
+    queryset=Film.objects.filter(rate__gt=4, display=1)
+    
+class Film_Add(forms.Form):
+    if request.POST:
+        addFilmForm = FilmForm(request.POST)
+        if addFilmForm.is_valid():
+            film_instance = addFilmForm.save()
+            film_instance.display = 1
+            # film_instance.timestamp = timezone.now() bunun gibi, db de olan ama formda display edilmeyen alanlarin degerleri burda verilebilir.
+            film_instance.save()
+            return render(request, 'films/addFilm.html',	{'addFilmForm':addFilmForm })
+    else:
+        addFilmForm = FilmForm()
+        return render_to_response(
+    		'films/addFilm.html',
+    		{'addFilmForm':addFilmForm }, Context)
 
 def search_form(request, option):
     borough_list = Borough.objects.all()
@@ -46,11 +68,11 @@ def filmOptions(request):
                 #return HttpResponse("Updated")
 
 #add with html form
-def film_add(request):
+def __film_add(request):
 	return render(request, 'films/addFilm.html') 
     
 #add via form instance    
-def __film_add(request):
+def film_add(request):
     Context = RequestContext(request)
     if request.method == "POST":
         addFilmForm = FilmForm(request.POST)

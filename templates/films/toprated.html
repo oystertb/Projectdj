@@ -20,6 +20,11 @@
 {% extends "base.html"%}
 
 {% block content %} 
+{% if is_paginated %}
+	{% if page_obj.has_previous %}
+         <a href="{% url "top_rated" %}?page={{ page_obj.previous_
+   		  page_number }}">Previous</a>
+    {% endif %}
 <a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
 	<form action="/films/filmOptions/" method="get">
 		<table >
@@ -56,4 +61,9 @@
 			<!-- {% endif %} -->
 		</table>
 	</form>
+	{% if page_obj.has_next %}
+	         <a href="{% url "top_rated" %}?page={{ page_obj.next_page_
+	   		  number }}">Next</a>
+	{% endif %}
+{% endif %}
 {% endblock %}

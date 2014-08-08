@@ -1,7 +1,10 @@
-<!-- addfilm adding via form instance version -->
+<!-- add film html form version - usual way -->
 <style>
-	.AddFilmDiv{ text-align: left;padding-top: 60px;}
+	
+	table{ margin-right: auto; margin-left: auto; border: 1px solid black; border-collapse: collapse; }
+	td,th { padding: 25px; text-align: center; border: 1px solid black;}
 	#back { margin-right:455;}
+	
 
 </style>
 
@@ -9,24 +12,46 @@
 
 {% block content %}
 
-<div class="AddFilmDiv">
+<div class="mainAddDiv">
 	<a id="back" onClick="javascript:history.go(-1);">&lt;--Back</a>
-	<h2>ADD NEW FILM</h2>
-
-        <form id="add_film_form" method="post" action="/films/film_add/"
-                enctype="multipart/form-data">
-
-            {% csrf_token %}
-            <!-- Display each form. The as_p method wraps each element in a paragraph
-                 (<p>) element. This ensures each element appears on a new line,
-                 making everything look neater. -->
-            {{ addFilmForm.as_p }}
-            
-
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Add" />
-        </form>
-	
+	<form action="#" method=POST>
+		<table style='width:600px'>
+			<caption> Add Film </caption>
+			<tr>
+				<th colspan="2">Name:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Year:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Rating:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Director:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Link:</th>
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Location:</th> <!-- burasi select choice olacak -->
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tr>
+				<th colspan="2">Genre:</th> <!-- burasi select choice olacak -->
+				<td><input type="text" name="TxtFilmUpdatedName"></input></td>
+			</tr>
+			<tfoot>
+				<tr>
+					<td colspan="4">Enter necessary fields and <input type="submit" name="add" value="Add" /></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
 </div>
 
 {% endblock %}
