@@ -21,11 +21,12 @@ class Film_TopRatedList(ListView):
 class FilmAddView(FormView):
     form_class = FilmForm
     #success_url = reverse_lazy('home')
+    success_url = '/films/top_rated/'
     template_name ="films/addFilm.html"
 
     def form_valid(self, form):
         form.save(commit=True)
-        messages.success(self.request, 'Added!')
+        #messages.success(self.request, 'Added!')
         return super(FilmAddView, self).form_valid(form)
     
 class FilmAddCreateView(CreateView):
