@@ -17,11 +17,12 @@
                 enctype="multipart/form-data">
 
             {% csrf_token %}
+            {{ form.as_p }}
             <!-- Display each form. The as_p method wraps each element in a paragraph
                  (<p>) element. This ensures each element appears on a new line,
                  making everything look neater. -->
-            {{ addFilmForm.as_p }}
             
+            <!-- {{ film_addForm.as_p }} -->
 
             <!-- Provide a button to click to submit the form. -->
             <input type="submit" name="submit" value="Add" />

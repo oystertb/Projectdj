@@ -10,28 +10,59 @@ from django.contrib.auth.decorators import login_required
 from django import forms
 from films.forms import FilmForm
 from films.models import Film
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, FormView
 
 class Film_TopRatedList(ListView):
     model=Film
     template_name="films/toprated.html"
     paginate_by = 5
     queryset=Film.objects.filter(rate__gt=4, display=1)
+
+class FilmAddView(FormView):
+    form_class = FilmForm
+    #success_url = reverse_lazy('home')
+    template_name ="films/addFilm.html"
+
+    def form_valid(self, form):
+        form.save(commit=True)
+        messages.success(self.request, 'Added!')
+        return super(FilmAddView, self).form_valid(form)
     
-class Film_Add(forms.Form):
-    if request.POST:
-        addFilmForm = FilmForm(request.POST)
-        if addFilmForm.is_valid():
-            film_instance = addFilmForm.save()
-            film_instance.display = 1
-            # film_instance.timestamp = timezone.now() bunun gibi, db de olan ama formda display edilmeyen alanlarin degerleri burda verilebilir.
-            film_instance.save()
-            return render(request, 'films/addFilm.html',	{'addFilmForm':addFilmForm })
-    else:
-        addFilmForm = FilmForm()
-        return render_to_response(
-    		'films/addFilm.html',
-    		{'addFilmForm':addFilmForm }, Context)
+class FilmAddCreateView(CreateView):
+    template_name = 'films/addFilm.html'
+    model = Film
+    form_class = FilmForm
+    success_url = 'success/'
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        film_addForm = FilmForm()
+        return self.render_to_response(
+            self.get_context_data(form = form,
+                                   film_addForm = film_addForm))
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        film_addForm = FilmForm(self.request.POST)
+        if (form.is_valid() and film_addForm.is_valid()):
+            return self.form_valid(form, film_addForm)
+        else:
+            return self.form_invalid(form, film_addForm)
+
+    def form_valid(self, form, film_addForm):
+        self.object = form.save()
+        film_addForm.instance = self.object
+        film_addForm.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, film_addForm):
+        return self.render_to_response(
+            self.get_context_data(form = form,
+                                film_addForm = film_addForm))
 
 def search_form(request, option):
     borough_list = Borough.objects.all()
