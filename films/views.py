@@ -18,22 +18,25 @@ class Film_TopRatedList(ListView):
     paginate_by = 5
     queryset=Film.objects.filter(rate__gt=4, display=1)
 
-class FilmAddView(FormView):
-    form_class = FilmForm
-    #success_url = reverse_lazy('home')
-    success_url = '/films/top_rated/'
-    template_name ="films/addFilm.html"
 
-    def form_valid(self, form):
-        form.save(commit=True)
-        #messages.success(self.request, 'Added!')
-        return super(FilmAddView, self).form_valid(form)
+# bu da form u class ile olusturuyor. Ama createview ile olusturmak daha preferable imis
+#class FilmAddView(FormView):
+ #   form_class = FilmForm
+  #  #success_url = reverse_lazy('home')
+   # success_url = '/films/top_rated/'
+    #template_name ="films/addFilm.html"
+
+    #def form_valid(self, form):
+     #   form.save(commit=True)
+      #  #messages.success(self.request, 'Added!')
+       # return super(FilmAddView, self).form_valid(form)
     
+{% comment %}
 class FilmAddCreateView(CreateView):
     template_name = 'films/addFilm.html'
     model = Film
     form_class = FilmForm
-    success_url = 'success/'
+    success_url = '/films/top_rated/'
 
     def get(self, request, *args, **kwargs):
         self.object = None
@@ -64,6 +67,8 @@ class FilmAddCreateView(CreateView):
         return self.render_to_response(
             self.get_context_data(form = form,
                                 film_addForm = film_addForm))
+
+{% endcomment %}
 
 def search_form(request, option):
     borough_list = Borough.objects.all()
@@ -99,11 +104,11 @@ def filmOptions(request):
                 return render(request,'films/filmInfoUpdate.html',{'f_update':f_update, 'zone_list' : zone_list, 'borough_list' : borough_list, 'genre_list' : genre_list})
                 #return HttpResponse("Updated")
 
-#add with html form
-def __film_add(request):
-	return render(request, 'films/addFilm.html') 
+#add with html form - burda manytomany iliskide sorun cikiyor
+#def __film_add(request):
+#	return render(request, 'films/addFilm.html') 
     
-#add via form instance    
+#add via form instance   - burda manytomany iliskide sorun cikiyor 
 def film_add(request):
     Context = RequestContext(request)
     if request.method == "POST":
@@ -118,8 +123,8 @@ def film_add(request):
         
     return render_to_response(
     		'films/addFilm.html',
-    		{'addFilmForm':addFilmForm }, Context)
-            
+    		{'addFilmForm':addFilmForm }, Context) 
+
 def filmUpdate(request):
     f = Film.objects.get(pk = request.GET.get("filmPK"))
     f.film_name = request.GET.get('TxtFilmUpdatedName')
